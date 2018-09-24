@@ -21,8 +21,7 @@ public class Item {
     public Item() {
     }
 
-    public Item(long id, String text, int category, long userId) {
-        this.id = id;
+    public Item(String text, int category, long userId) {
         this.text = text;
         this.category = category;
         this.isSelected = false;

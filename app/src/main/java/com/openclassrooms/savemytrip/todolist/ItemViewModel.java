@@ -40,7 +40,9 @@ public class ItemViewModel extends ViewModel {
     // FOR USER
     // -------------
 
-    public LiveData<User> getUser(long userId) { return this.currentUser;  }
+    public LiveData<User> getUser(long userId) {
+        return this.currentUser;
+    }
 
     // -------------
     // FOR ITEM
