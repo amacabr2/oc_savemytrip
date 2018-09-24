@@ -113,7 +113,7 @@ public class TripBookActivity extends BaseActivity {
         if (this.radioButtonExternalChoice.isChecked()){
             this.writeOnExternalStorage(); //Save on external storage
         } else {
-            //TODO: Save on internal storage
+            this.writeOnInternalStorage();
         }
     }
 
@@ -140,7 +140,14 @@ public class TripBookActivity extends BaseActivity {
                 }
             }
         } else {
-            // TODO : READ FROM INTERNAL STORAGE
+            // INTERNAL
+            if (radioButtonInternalVolatileChoice.isChecked()){
+                // Cache
+                this.editText.setText(StorageUtils.getTextFromStorage(getCacheDir(), this, FILENAME, FOLDERNAME));
+            } else {
+                // Normal
+                this.editText.setText(StorageUtils.getTextFromStorage(getFilesDir(), this, FILENAME, FOLDERNAME));
+            }
         }
     }
 
@@ -153,6 +160,14 @@ public class TripBookActivity extends BaseActivity {
             }
         } else {
             Toast.makeText(this, getString(R.string.external_storage_impossible_create_file), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void writeOnInternalStorage() {
+        if (radioButtonInternalVolatileChoice.isChecked()){
+            setTextInStorage(getCacheDir(), this, FILENAME, FOLDERNAME, this.editText.getText().toString());
+        } else {
+            setTextInStorage(getFilesDir(), this, FILENAME, FOLDERNAME, this.editText.getText().toString());
         }
     }
 }
