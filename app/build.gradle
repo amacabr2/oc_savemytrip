@@ -16,6 +16,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug {
+            testCoverageEnabled true
+        }
     }
     compileOptions {
         targetCompatibility 1.8
@@ -47,3 +50,5 @@ dependencies {
     // TESTING
     androidTestImplementation "android.arch.core:core-testing:1.1.1"
 }
+
+apply plugin: 'jacoco-android'
