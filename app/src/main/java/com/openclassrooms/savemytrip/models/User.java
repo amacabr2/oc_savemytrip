@@ -1,7 +1,12 @@
 package com.openclassrooms.savemytrip.models;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+
+@Entity
 public class User {
 
+    @PrimaryKey
     private long id;
     private String username;
     private String urlPicture;
