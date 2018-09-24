@@ -5,6 +5,7 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
+import android.database.Cursor;
 
 import com.openclassrooms.savemytrip.models.Item;
 
@@ -24,4 +25,7 @@ public interface ItemDao {
 
     @Query("DELETE FROM Item WHERE id = :itemId")
     int deleteItem(long itemId);
+
+    @Query("SELECT * FROM Item WHERE userId = :userId")
+    Cursor getItemsWithCursor(long userId);
 }

@@ -3,6 +3,7 @@ package com.openclassrooms.savemytrip.models;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
+import android.content.ContentValues;
 
 @Entity(foreignKeys = @ForeignKey(
         entity = User.class,
@@ -66,5 +67,24 @@ public class Item {
 
     public void setUserId(long userId) {
         this.userId = userId;
+    }
+
+    public static Item fromContentValues(ContentValues values) {
+        final Item item = new Item();
+
+        if (values.containsKey("text")) {
+            item.setText(values.getAsString("text"));
+        }
+        if (values.containsKey("category")) {
+            item.setCategory(values.getAsInteger("category"));
+        }
+        if (values.containsKey("isSelected")) {
+            item.setSelected(values.getAsBoolean("isSelected"));
+        }
+        if (values.containsKey("userId")) {
+            item.setUserId(values.getAsLong("userId"));
+        }
+
+        return item;
     }
 }
