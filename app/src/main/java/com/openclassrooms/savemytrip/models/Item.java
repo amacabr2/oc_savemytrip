@@ -53,7 +53,7 @@ public class Item {
         this.category = category;
     }
 
-    public boolean isSelected() {
+    public boolean getSelected() {
         return isSelected;
     }
 
