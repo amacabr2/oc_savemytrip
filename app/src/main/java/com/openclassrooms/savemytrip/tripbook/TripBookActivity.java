@@ -3,6 +3,7 @@ package com.openclassrooms.savemytrip.tripbook;
 
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,7 +20,10 @@ import com.openclassrooms.savemytrip.utils.StorageUtils;
 
 import butterknife.BindView;
 import butterknife.OnCheckedChanged;
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
 
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.view.View.*;
 import static com.openclassrooms.savemytrip.utils.StorageUtils.*;
 
@@ -41,6 +45,7 @@ public class TripBookActivity extends BaseActivity {
 
     private static final String FILENAME = "tripBook.txt";
     private static final String FOLDERNAME = "bookTrip";
+    private static final int RC_STORAGE_WRITE_PERMS = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +57,12 @@ public class TripBookActivity extends BaseActivity {
     @Override
     public int getLayoutContentViewID() {
         return R.layout.activity_trip_book;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     @Override
@@ -110,7 +121,13 @@ public class TripBookActivity extends BaseActivity {
     // UTILS - STORAGE
     // ----------------------------------
 
+    @AfterPermissionGranted(RC_STORAGE_WRITE_PERMS)
     private void readFromStorage(){
+        if (!EasyPermissions.hasPermissions(this, WRITE_EXTERNAL_STORAGE)) {
+            EasyPermissions.requestPermissions(this, getString(R.string.title_permission), RC_STORAGE_WRITE_PERMS, WRITE_EXTERNAL_STORAGE);
+            return;
+        }
+
         if (this.radioButtonExternalChoice.isChecked()){
             if (isExternalStorageReadable()){
                 // EXTERNAL
