@@ -29,6 +29,7 @@ import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+import static android.os.Environment.DIRECTORY_DOCUMENTS;
 import static android.view.View.*;
 import static com.openclassrooms.savemytrip.utils.StorageUtils.*;
 
@@ -139,10 +140,10 @@ public class TripBookActivity extends BaseActivity {
                 // EXTERNAL
                 if (radioButtonExternalPublicChoice.isChecked()){
                     // External - Public
-                    this.editText.setText(getTextFromStorage(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS),this, FILENAME, FOLDERNAME));
+                    this.editText.setText(getTextFromStorage(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS),this, FILENAME, FOLDERNAME));
                 } else {
                     // External - Privatex
-                    this.editText.setText(getTextFromStorage(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), this, FILENAME, FOLDERNAME));
+                    this.editText.setText(getTextFromStorage(getExternalFilesDir(DIRECTORY_DOCUMENTS), this, FILENAME, FOLDERNAME));
                 }
             }
         } else {
@@ -160,9 +161,9 @@ public class TripBookActivity extends BaseActivity {
     private void writeOnExternalStorage(){
         if (isExternalStorageWritable()){
             if (radioButtonExternalPublicChoice.isChecked()){
-                setTextInStorage(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), this, FILENAME, FOLDERNAME, this.editText.getText().toString());
+                setTextInStorage(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS), this, FILENAME, FOLDERNAME, this.editText.getText().toString());
             } else {
-                setTextInStorage(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), this, FILENAME, FOLDERNAME, this.editText.getText().toString());
+                setTextInStorage(getExternalFilesDir(DIRECTORY_DOCUMENTS), this, FILENAME, FOLDERNAME, this.editText.getText().toString());
             }
         } else {
             Toast.makeText(this, getString(R.string.external_storage_impossible_create_file), Toast.LENGTH_LONG).show();
